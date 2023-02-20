@@ -1,4 +1,5 @@
 function Dragger( element ) {
+    toolbarheight = 70
     this.element = element;
     this.x = 0;
     this.y = 0;
@@ -44,7 +45,7 @@ function Dragger( element ) {
     if (this.x < 0) {this.x = 0;}
     if (this.x + this.element.offsetWidth > window.innerWidth) {this.x = window.innerWidth - this.element.offsetWidth;}
     if (this.y < 0) {this.y = 0;}
-    if (this.y + this.element.offsetHeight > window.innerHeight - 50) {this.y = window.innerHeight - this.element.offsetHeight - 50;} // 50 is size of toolbar
+    if (this.y + this.element.offsetHeight > window.innerHeight - toolbarheight) {this.y = window.innerHeight - this.element.offsetHeight - toolbarheight;} // 70 is size of toolbar
 
     // TODO: When moving, set to top layer (keep track of # of layers)
     //this.element.style.zIndex = ;
