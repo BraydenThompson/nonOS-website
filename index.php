@@ -22,7 +22,7 @@
         <form action="/signup.php">
             <input type="submit" value="Sign Up"/>
         </form>
-        <form action="/loginhandler.php">
+        <form action="/desktop.php">
             <input type="submit" value="Login as Guest"/>
         </form>
     </div>

@@ -2,6 +2,11 @@
     <head>
         <title>non-OS Desktop</title>
         <link rel="stylesheet" href="style.css">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500&display=swap" rel="stylesheet">
+
         <link rel="icon" type="image/x-icon" href="favicon.ico">
 	</head>
     
@@ -133,13 +138,15 @@
             </ul> 
         </div>
 
-        <ul class="taskbar">
-            <li><a onclick="" class="active"><img src="img/X.png" width=30 height=30/>Chat</a></li>
-            <li><a onclick="" class="active"><img src="img/X.png" width=30 height=30/>Gallery</a></li>
-            <li><a onclick="" class="active"><img src="img/X.png" width=30 height=30/>Gallery</a></li>
-            <li><a onclick="" class="active"><img src="img/X.png" width=30 height=30/>Gallery</a></li>
-            <li><a onclick="" class="active"><img src="img/X.png" width=30 height=30/>Gallery</a></li>
-            <li><a onclick="toggleElement('notepad')" class=""><img src="img/X.png" width=30 height=30/>Notepad</a></li>
+        <ul id="taskbar">
+            <li><a class="taskbarbutton" onclick="toggleElement('notepad')" class=""><img src="img/X.png" width=30 height=30/>Notepad</a></li>
+            <li><a class="taskbarbutton" onclick="toggleElement('chat')"><img src="img/X.png" width=30 height=30/>Chat</a></li>
+            <li><a class="taskbarbutton" onclick="toggleElement('gallery')"><img src="img/X.png" width=30 height=30/>Gallery</a></li>
+            <li><a class="taskbarbutton" onclick=""><img src="img/X.png" width=30 height=30/>TEST</a></li>
+            <li><a class="taskbarbutton" onclick=""><img src="img/X.png" width=30 height=30/>TEST</a></li>
+            <li><a class="taskbarbutton" onclick=""><img src="img/X.png" width=30 height=30/>TEST</a></li>
+
+            <a id="aboutlink" href="about.php">About</a>
         </ul>
 
         <script type="text/javascript" src="tools.js"></script>
