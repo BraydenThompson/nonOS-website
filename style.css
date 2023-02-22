@@ -104,8 +104,8 @@ body {
     visibility: hidden;
     overflow: visible;
     position: absolute;
-    min-width: 200px;
-    min-height: 200px;
+    min-width: 300px;
+    min-height: 300px;
     border-radius: 20px;
     background-color: hsl(7, 92%, 75%);
 
@@ -155,19 +155,17 @@ body {
 #chatbox {
     width: 100%;
     height: calc(100% - 50px); /* 100% - height of chatform*/
-    overflow: scroll;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 #chatbox table {
-    border-color: black;
-    table-layout:fixed;
     width: 100%;
 }
 
 /* username */
 #chatbox table tr td:nth-child(1) {
     text-align: center;
-    overflow:scroll;
     text-overflow: ellipsis;
     white-space: nowrap;
     width: max-content;
@@ -180,13 +178,24 @@ body {
     width: max-content;
 }
 
+/* all individual cells */
 #chatbox table tr td {
-    overflow: hidden;
     border-radius: 10px;
-    margin: 0;
+    overflow: hidden;
     padding: 4px;
-    background-color: crimson;
 }
+
+/* even rows */
+#chatbox table tr:nth-child(even) td{
+    background-color: rgb(255, 66, 66);
+}
+
+/* odd rows */
+#chatbox table tr:nth-child(odd) td {
+    background-color: rgb(255, 49, 100);
+}
+
+
 
 #chatform {
     position: relative;
@@ -235,7 +244,8 @@ body {
 
 #gallerybrowser {
     order: 2;
-    overflow: scroll;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 .galleryimage {

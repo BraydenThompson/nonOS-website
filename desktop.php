@@ -42,12 +42,42 @@
                             </tr>
                             <tr>
                                 <td>joe</td>
-                                <td>The moon landing was a hoax I tell u, the guy neil armstrong siad so in this here interview from 1995 i tell yuo what</td>
+                                <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</td>
                                 <td>3:33am</td>
                             </tr>
                             <tr>
-                                <td>coolUserNAME12thethird:)))</td>
+                                <td>Username</td>
                                 <td>hi</td>
+                                <td>10:41pm</td>
+                            </tr>
+                            <tr>
+                                <td>Username</td>
+                                <td>This is my wacky and cool and insightful comment!</td>
+                                <td>10:41pm</td>
+                            </tr>
+                            <tr>
+                                <td>Username</td>
+                                <td>This is my wacky and cool and insightful comment!</td>
+                                <td>10:41pm</td>
+                            </tr>
+                            <tr>
+                                <td>Username</td>
+                                <td>This is my wacky and cool and insightful comment!</td>
+                                <td>10:41pm</td>
+                            </tr>
+                            <tr>
+                                <td>Username</td>
+                                <td>This is my wacky and cool and insightful comment!</td>
+                                <td>10:41pm</td>
+                            </tr>
+                            <tr>
+                                <td>Username</td>
+                                <td>This is my wacky and cool and insightful comment!</td>
+                                <td>10:41pm</td>
+                            </tr>
+                            <tr>
+                                <td>Username</td>
+                                <td>This is my wacky and cool and insightful comment!</td>
                                 <td>10:41pm</td>
                             </tr>
                             <tr>
@@ -123,7 +153,7 @@
             <ul id="icons">
                 <li onclick="toggleElement('hideMe')"><img src="img/X.png"/>Hide Me!</li>
                 <li onclick="toggleElement('notepad')"><img src="img/X.png"/>Notepad</li>
-                <li onclick="toggleElement('button')"><img src="img/X.png"/>Button woah</li>
+                <li onclick="toggleElement('button')"><img src="img/X.png"/>Big Button</li>
                 <li onclick="toggleElement('chat')"><img src="img/X.png"/>Chat</li>
                 <li onclick=""><img src="img/X.png"/>TEST</li>
                 <li onclick=""><img src="img/X.png"/>TEST</li>
