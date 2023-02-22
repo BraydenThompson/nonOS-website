@@ -1,5 +1,6 @@
 <html>
     <head>
+        <title>non-OS Signup</title>
         <link rel="stylesheet" href="style.css">
 
         <!-- Load font -->

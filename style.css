@@ -355,3 +355,13 @@ body {
     display: inline;
 }
 
+/* About page style */
+#abouttext {
+    width: 70%;
+}
+
+#aboutfooter {
+    position: relative;
+    display: block;
+    text-align: center;
+}

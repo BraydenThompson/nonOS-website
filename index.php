@@ -1,5 +1,6 @@
 <html>
     <head>
+        <title>non-OS Login</title>
         <link rel="stylesheet" href="style.css">
 
         <!-- Load font -->
