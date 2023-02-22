@@ -152,6 +152,11 @@
                         <img class="galleryimage" src="img/dogwide.png"/>
                         <img class="galleryimage" src="img/X.png"/>
                         <img class="galleryimage" src="img/X.png"/>
+                        <img class="galleryimage" src="img/X.png"/>
+                        <img class="galleryimage" src="img/X.png"/>
+                        <img class="galleryimage" src="img/X.png"/>
+                        <img class="galleryimage" src="img/X.png"/>
+                        <img class="galleryimage" src="img/X.png"/>
                     </div>
                 </div>
             </div>

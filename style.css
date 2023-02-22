@@ -324,11 +324,12 @@ body {
 }
 
 
-input[type=text], input[type=password] {
+.loginform input[type=text], input[type=password] {
     padding: 6px 10px;
     display: block;
     border: 1px solid #ccc;
     border-radius: 10px;
+    margin: 5px auto;
 }
 
 .center {
@@ -342,11 +343,15 @@ input[type=text], input[type=password] {
 
 .loginform {
     padding-top: 5px;
-    padding-bottom: 20px;
-    line-height: 30px;
+    text-align: center;
 }
 
 .logincontainer {
     text-align: center;
+    top: 40%;
+}
+
+.otherloginbuttons form {
+    display: inline;
 }
 
