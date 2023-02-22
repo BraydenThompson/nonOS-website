@@ -28,7 +28,7 @@ function toggleFullscreen(name) {
         e.style.top = 0;
         e.style.left = 0;
         e.style.width = "100%";
-        e.style.height = "calc(100% - 50px)";
+        e.style.height = "calc(100% - " + toolbarHeight + "px)";
     } else {
         resetLocationScale(e);
         e.classList.remove("fullscreen");
@@ -121,8 +121,7 @@ function Dragger( element ) {
     window.removeEventListener( 'mouseup', this.mouseupHandler );
   };
   
-  // --------------- //
-  
+
   var dragElems = document.querySelectorAll('.window');
   for ( var i=0; i < dragElems.length; i++ ) {
     var dragElem = dragElems[i];
