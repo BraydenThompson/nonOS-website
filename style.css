@@ -159,12 +159,12 @@ body {
     overflow-x: hidden;
 }
 
-#chatbox table {
+.tablerounded {
     width: 100%;
 }
 
 /* username */
-#chatbox table tr td:nth-child(1) {
+.tablerounded tr td:nth-child(1) {
     text-align: center;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -172,26 +172,26 @@ body {
 }
 
 /* time */
-#chatbox table tr td:nth-child(3) {
+.tablerounded tr td:nth-child(3) {
     text-align: center;
     max-width: fit-content;
     width: max-content;
 }
 
 /* all individual cells */
-#chatbox table tr td {
+.tablerounded tr td {
     border-radius: 10px;
     overflow: hidden;
     padding: 4px;
 }
 
 /* even rows */
-#chatbox table tr:nth-child(even) td{
+.tablerounded tr:nth-child(even) td{
     background-color: rgb(255, 66, 66);
 }
 
 /* odd rows */
-#chatbox table tr:nth-child(odd) td {
+.tablerounded tr:nth-child(odd) td {
     background-color: rgb(255, 49, 100);
 }
 
@@ -239,7 +239,15 @@ body {
 #galleryinfo {
     order: 1;
     flex-direction: column;
+    max-width: fit-content;
+    min-width: min-content;
     flex-shrink: 2;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+#galleryinfo table {
+
 }
 
 #gallerybrowser {
@@ -250,6 +258,8 @@ body {
 
 .galleryimage {
     padding: 5px;
+    max-width: 100px;
+    vertical-align: middle;
 }
 
 .resizeable {

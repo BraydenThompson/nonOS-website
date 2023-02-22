@@ -3,6 +3,7 @@
         <title>non-OS Desktop</title>
         <link rel="stylesheet" href="style.css">
 
+        <!-- Load font -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500&display=swap" rel="stylesheet">
@@ -13,18 +14,8 @@
     <!--TODO: write php to dynamically generate windows -->
     <body>
         <div id="desktoparea">
-            <div id="hideMe" class="window resizeable">
-                <div id="hideMeWindow" class="windowheader">
-                    <span class="headertext">Hide Me!</span>
-                    <img class="headerbutton" src="img/X.png" alt="Close Window" width="30px" height="30px" onclick="toggleElement('hideMe', true)"/>
-                    <img class="headerbutton" src="img/X.png" alt="Fullscreen Window" width="30px" height="30px" onclick="toggleFullscreen('hideMe')"/>
-                    <img class="headerbutton" src="img/X.png" alt="Minimize Window" width="30px" height="30px" onclick="toggleElement('hideMe')"/>
-                </div>
-                <div class="windowbody">
-                    <button> This is a cool button! </button>
-                </div>
-            </div>
 
+            <!-- HTML WINDOWS -->
             <div id="chat" class="window resizeable">
                 <div class="windowheader">
                     <span class="headertext">Chat</span>
@@ -34,7 +25,8 @@
                 </div>
                 <div class="windowbody">
                     <div id="chatbox">
-                        <table>
+                        <!-- COMMENT TABLE -->
+                        <table class="tablerounded">
                             <tr>
                                 <td>Username</td>
                                 <td>This is my comment!</td>
@@ -115,16 +107,43 @@
                 </div>
                 <div id="gallerycontainer" class="windowbody">
                     <div id="galleryinfo">
-                        Info
+                        Image Info
+                        <table class="tablerounded">
+                            <tr>
+                                <td>Title:</td>
+                                <td>MyImage</td>
+                            </tr>
+                            <tr>
+                                <td>Uploader:</td>
+                                <td>myName</td>
+                            </tr>
+                            <tr>
+                                <td>Upload date:</td>
+                                <td>6/2/2024</td>
+                            </tr>
+                            <tr>
+                                <td>Resolution:</td>
+                                <td>300 x 300</td>
+                            </tr>
+                            <tr>
+                                <td>Description:</td>
+                                <td>This is a cool image I took of a lake! And also a bunch of other text so that this table entry wraps to multiple rows when the window is resized.</td>
+                            </tr>
+                            <tr>
+                                <td>Tags:</td>
+                                <td>Cool, Photograph, Lake, Sunset</td>
+                            </tr>
+                        </table>
                     </div>
+                    <!-- GALLERY IMAGES -->
                     <div id="gallerybrowser">
                         <img class="galleryimage" src="img/X.png"/>
                         <img class="galleryimage" src="img/X.png"/>
+                        <img class="galleryimage" src="img/dog.png"/>
+                        <img class="galleryimage" src="img/dog2.png"/>
                         <img class="galleryimage" src="img/X.png"/>
                         <img class="galleryimage" src="img/X.png"/>
-                        <img class="galleryimage" src="img/X.png"/>
-                        <img class="galleryimage" src="img/X.png"/>
-                        <img class="galleryimage" src="img/X.png"/>
+                        <img class="galleryimage" src="img/dogwide.png"/>
                         <img class="galleryimage" src="img/X.png"/>
                         <img class="galleryimage" src="img/X.png"/>
                     </div>
