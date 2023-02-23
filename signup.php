@@ -8,7 +8,7 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500&display=swap" rel="stylesheet">
     </head>
-<body class="desktopbody"> 
+<body> 
     <div class="logincontainer center">
         <div class="logocontainer">            
             <video autoplay loop preload>
