@@ -325,7 +325,7 @@ body {
     resize: none;
 }
 
-
+/* Login page style */
 .loginform input[type=text], input[type=password] {
     padding: 6px 10px;
     display: block;
@@ -350,18 +350,25 @@ body {
 
 .logincontainer {
     text-align: center;
-    top: 40%;
+    top: 350px;
 }
 
 .otherloginbuttons form {
     display: inline;
 }
 
-/* About page style */
-#abouttext {
-
+.logincontainer {
+    width: 100%;
+    max-width: max-content;
+    max-height: max-content;
 }
 
+.logincontainer video {
+    height: 100%;
+    width: 100%;
+}
+
+/* About page style */
 #aboutfooter {
     position: absolute;
     text-align: center;

@@ -1,4 +1,4 @@
-var toolbarHeight = 70; // The height of the toolbar, in
+var toolbarHeight = 70; // The height of the toolbar, in px
 
 // When window is resized, call collision checks
 window.addEventListener("resize", keepWindowsWithinScreen);
@@ -19,6 +19,11 @@ function toggleElement(name, reset= false) {
     }
 }
 
+/**
+ * Toggles the size of the element to take up the entire usable space of the page.
+ * Used to fullscreen windows.
+ * @param {element} name 
+ */
 function toggleFullscreen(name) {
     var e = document.getElementById(name);
 
@@ -36,6 +41,10 @@ function toggleFullscreen(name) {
 
 }
 
+/**
+ * Checks every window for collision with the browser window,
+ * used to resize windows so that they always stay within the bounds of the browser.
+ */
 function keepWindowsWithinScreen() {
     windows = document.querySelectorAll(".window");
     windows.forEach(myWindow => {
@@ -55,6 +64,12 @@ function keepWindowsWithinScreen() {
     });
 }
 
+
+/**
+ * Resets the position of the element to default,
+ * used when "closing" windows
+ * @param {element} e 
+ */
 function resetLocationScale(e) {
     e.style.top = "";
     e.style.left = "";
@@ -62,6 +77,10 @@ function resetLocationScale(e) {
     e.style.height = "";
 }
 
+/**
+ * Dragger function that allows windows to be dragged by their header bars
+ * @param {element} element 
+ */
 function Dragger( element ) {
     this.element = element;
     this.x = 0;
@@ -121,7 +140,7 @@ function Dragger( element ) {
     window.removeEventListener( 'mouseup', this.mouseupHandler );
   };
   
-
+  // Attach dragger to every window element
   var dragElems = document.querySelectorAll('.window');
   for ( var i=0; i < dragElems.length; i++ ) {
     var dragElem = dragElems[i];

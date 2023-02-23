@@ -11,7 +11,7 @@
 <body> 
     <div class="logincontainer center">
         <div class="logocontainer">            
-            <video autoplay loop preload>
+            <video autoplay loop preload muted>
                 <source src="img/nonOSLogoVid7000001-0024.webm" type="video/webm">
             </video>
         </div>

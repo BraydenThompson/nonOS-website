@@ -246,7 +246,6 @@
             <li><a class="taskbarbutton" onclick="toggleElement('button')"><img src="img/X.png">Big Button</a></li>
             <li><a class="taskbarbutton" onclick=""><img src="img/X.png"/>TEST</a></li>
             <li><a class="taskbarbutton" onclick=""><img src="img/X.png"/>TEST</a></li>
-            <li><a class="taskbarbutton" onclick=""><img src="img/X.png"/>TEST</a></li>
 
             <a class="rightlink" href="index.php">Log Out</a>
             <a class="rightlink" href="about.php">About</a>
