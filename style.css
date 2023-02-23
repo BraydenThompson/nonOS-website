@@ -1,6 +1,9 @@
 body {
     background-color: cadetblue;
     font-family: 'Fredoka', sans-serif;
+}
+
+.desktopbody {
     height: 100%;
     overflow: hidden;
 }
@@ -102,7 +105,7 @@ body {
     color: wheat;
 }
 
-#aboutlink {
+.rightlink {
     float: right;
     padding: 25px 10px 0px 0px;
 }
@@ -228,7 +231,6 @@ body {
 }
 
 #chatform input[type=submit] {
-    padding-top: 10px;
     float: right;
 }
 
@@ -357,11 +359,10 @@ body {
 
 /* About page style */
 #abouttext {
-    width: 70%;
+
 }
 
 #aboutfooter {
-    position: relative;
-    display: block;
+    position: absolute;
     text-align: center;
 }

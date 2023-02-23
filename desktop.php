@@ -12,7 +12,7 @@
 	</head>
     
     <!--TODO: write php to dynamically generate windows, taskbar buttons, and desktop icons -->
-    <body>
+    <body class="desktopbody">
         <div id="desktoparea">
 
             <!-- HTML WINDOWS -->
@@ -248,7 +248,8 @@
             <li><a class="taskbarbutton" onclick=""><img src="img/X.png"/>TEST</a></li>
             <li><a class="taskbarbutton" onclick=""><img src="img/X.png"/>TEST</a></li>
 
-            <a id="aboutlink" href="about.php">About</a>
+            <a class="rightlink" href="index.php">Log Out</a>
+            <a class="rightlink" href="about.php">About</a>
         </ul>
 
         <script type="text/javascript" src="tools.js"></script>
