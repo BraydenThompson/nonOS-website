@@ -1,3 +1,14 @@
+<?php
+    session_start();
+    require_once("dao.php");
+
+    // Make sure user is logged in 
+    if (isset($_SESSION["logged_in"]) && !$_SESSION["logged_in"] || !isset($_SESSION["logged_in"])) {
+        $_SESSION["status"] = "You must log in before accessing the main page!";
+        header("Location:index.php");
+    }
+?>
+
 <html>
     <head>
         <title>non-OS Desktop</title>
@@ -27,72 +38,20 @@
                     <div id="chatbox">
                         <!-- COMMENT TABLE -->
                         <table class="tablerounded">
-                            <tr>
-                                <td>Username</td>
-                                <td>This is my comment!</td>
-                                <td>10:41pm</td>
-                            </tr>
-                            <tr>
-                                <td>joe</td>
-                                <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</td>
-                                <td>3:33am</td>
-                            </tr>
-                            <tr>
-                                <td>Username</td>
-                                <td>hi</td>
-                                <td>10:41pm</td>
-                            </tr>
-                            <tr>
-                                <td>Username</td>
-                                <td>This is my wacky and cool and insightful comment!</td>
-                                <td>10:41pm</td>
-                            </tr>
-                            <tr>
-                                <td>Username</td>
-                                <td>This is my wacky and cool and insightful comment!</td>
-                                <td>10:41pm</td>
-                            </tr>
-                            <tr>
-                                <td>Username</td>
-                                <td>This is my wacky and cool and insightful comment!</td>
-                                <td>10:41pm</td>
-                            </tr>
-                            <tr>
-                                <td>Username</td>
-                                <td>This is my wacky and cool and insightful comment!</td>
-                                <td>10:41pm</td>
-                            </tr>
-                            <tr>
-                                <td>Username</td>
-                                <td>This is my wacky and cool and insightful comment!</td>
-                                <td>10:41pm</td>
-                            </tr>
-                            <tr>
-                                <td>Username</td>
-                                <td>This is my wacky and cool and insightful comment!</td>
-                                <td>10:41pm</td>
-                            </tr>
-                            <tr>
-                                <td>Username</td>
-                                <td>This is my wacky and cool and insightful comment!</td>
-                                <td>10:41pm</td>
-                            </tr>
-                            <tr>
-                                <td>Username</td>
-                                <td>This is my wacky and cool and insightful comment!</td>
-                                <td>10:41pm</td>
-                            </tr>
-                            <tr>
-                                <td>Username</td>
-                                <td>This is my wacky and cool and insightful comment!</td>
-                                <td>10:41pm</td>
-                            </tr>
+                            <?php
+                                $dao = new Dao();
+                                $comments = $dao->getComments();
+                                foreach ($comments as $rowarray) {
+                                    $row = implode("</td><td>", $rowarray);
+                                    echo "<tr> <td>$row</td> </tr>";
+                                }
+                            ?>
                         </table>
                     </div> 
-                    <form>
-                        <div id="chatform">
+                    <form id="chatform" method="POST" action="commenthandler.php" enctype="multipart/form-data">
+                        <div>
                             <input type="submit" name="submit" value="Send!"/>
-                            <span><input type="text" id="username" name="username" placeholder="Enter your message here!"/></span>
+                            <span><input type="text" id="comment" name="comment" placeholder="Enter your message here!"/></span>
                         </div>
                     </form>
                 </div>
@@ -247,7 +206,7 @@
             <li><a class="taskbarbutton" onclick=""><img src="img/X.png"/>TEST</a></li>
             <li><a class="taskbarbutton" onclick=""><img src="img/X.png"/>TEST</a></li>
 
-            <a class="rightlink" href="index.php">Log Out</a>
+            <a class="rightlink" href="logouthandler.php">Log Out</a>
             <a class="rightlink" href="about.php">About</a>
         </ul>
 

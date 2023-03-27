@@ -1,18 +1,82 @@
 <?php
 class Dao {
-    private $host = "localhost";
-    private $db = "nonosdb";
-    private $user = "bradyt";
-    private $pass = "password";
+  private $host = "localhost";
+  private $db = "nonos_db";
+  private $user = "root";
+  private $pass = "";
 
-    public function getConnection () {
-    return
-      new PDO("mysql:host={$this->host};dbname={$this->db}", $this->user,
-          $this->pass);
-    }
+  public function getConnection () {
+  return
+    new PDO("mysql:host={$this->host};dbname={$this->db}", $this->user,
+        $this->pass);
+  }
 
-    public function getComments () {
-        $conn = $this->getConnection();
-        return $conn->query("SELECT * FROM comments")->fetchAll(PDO::FETCH_ASSOC);
+  public function getUserFromName($username) {
+    $conn = $this->getConnection();
+    return $conn->query("SELECT * FROM users WHERE users.username = $username")->fetchAll(PDO::FETCH_ASSOC);
+  }
+  //TODO: Sanitize this input from username field
+  
+    /*$conn = $this->getConnection();
+    $saveQuery = "SELECT * FROM users WHERE users.username = :username";
+    $q = $conn->prepare($saveQuery);
+    $q->bindParam(":username", $username);
+    $q->execute();
+    return $q->fetchAll(PDO::FETCH_ASSOC);
+  }
+
+  public function getUserFromID($user_id) {
+    $conn = $this->getConnection();
+    $saveQuery = "SELECT * FROM users WHERE users.user_id = :user_id";
+    $q = $conn->prepare($saveQuery);
+    $q->bindParam(":user_id", $user_id);
+    $q->execute();
+    return $q;
+  }*/
+
+  public function createUser($username, $password, $admin = "0", $guest = "0") {
+    $conn = $this->getConnection();
+    $saveQuery =
+        "INSERT INTO users 
+        (username, password, admin, guest) 
+        VALUES 
+        (:username , :password, :admin, :guest)";
+    $q = $conn->prepare($saveQuery);
+    $q->bindParam(":username", $username);
+    $q->bindParam(":password", $password);
+    $q->bindParam(":admin", $admin);
+    $q->bindParam(":guest", $guest);
+    $q->execute();
+  }
+
+  public function changeUsername($user_id, $newUsername) {
+    $conn = $this->getConnection();
+    $saveQuery =
+        "UPDATE users SET 
+        username = :newUsername  
+        WHERE  
+        users.user_id = :user_id"; 
+    $q = $conn->prepare($saveQuery);
+    $q->bindParam(":newUsername", $newUsername);
+    $q->bindParam(":user_id", $user_id);
+    $q->execute();
+  }
+
+  public function getComments () {
+      $conn = $this->getConnection();
+      return $conn->query("SELECT users.username, messages.message, messages.sent_time FROM messages JOIN users ON messages.sender_id = users.user_id")->fetchAll(PDO::FETCH_ASSOC);
+  }
+
+  public function saveComment ($comment, $user_id) {
+    $conn = $this->getConnection();
+    $saveQuery =
+        "INSERT INTO messages 
+        (sender_id, message) 
+        VALUES 
+        (:sender_id , :message)";
+    $q = $conn->prepare($saveQuery);
+    $q->bindParam(":message", $comment);
+    $q->bindParam(":sender_id", $user_id);
+    $q->execute();
   }
 }

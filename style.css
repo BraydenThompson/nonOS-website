@@ -161,12 +161,24 @@ body {
     width: calc(100% - 20px);
 }
 
+.status {
+    background-color: orange;
+    border: 5px solid red;
+    border-radius: 10px;
+    padding: 5px;
+    text-align: center;
+    width: fit-content;
+    margin: auto;
+}
+
 /* CHAT STYLE */
 #chat {
     width: 400px;
     height: 600px;
 }
 #chatbox {
+    display: flex;
+    flex-direction: column-reverse;
     width: 100%;
     height: calc(100% - 50px); /* 100% - height of chatform*/
     overflow-y: scroll;

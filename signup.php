@@ -1,3 +1,6 @@
+<?php
+    session_start();
+?>
 <html>
     <head>
         <title>non-OS Signup</title>
@@ -15,15 +18,23 @@
                 <source src="img/nonOSLogoVid7000001-0024.webm" type="video/webm">
             </video>
         </div>
-        <form class="loginform" action="loginhandler.php" method="post">
-                <label for="username">Create Username:</label>
-                <input type="text" id="username" name="username" placeholder="Enter Username" required/>
-                <label for="password">Create Password:</label>
-                <input type="password" id="password" name="password" placeholder="Enter Password" required/>
-                <br>
-                <input type="password" id="password" name="password" placeholder="Repeat Password" required/>
-                <br>
-                <button type="submit">Create Account</button>
+
+        <?php
+            if(isset($_SESSION['status'])) {
+                echo "<div class='status'>" . $_SESSION['status'] . "</div>";
+                unset($_SESSION['status']);
+            }
+        ?>
+
+        <form class="loginform" action="signuphandler.php" method="POST">
+            <label for="username">Create Username:</label>
+            <input type="text" id="username" name="username" placeholder="Enter Username" required/>
+            <label for="password">Create Password:</label>
+            <input type="password" id="password" name="password" placeholder="Enter Password" required/>
+            <br>
+            <input type="password" id="password_repeat" name="password_repeat" placeholder="Repeat Password" required/>
+            <br>
+            <button type="submit">Create Account</button>
         </form>
     </div>
 </body>

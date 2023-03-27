@@ -1,3 +1,7 @@
+<?php
+    session_start();
+?>
+
 <html>
     <head>
         <title>non-OS Login</title>
@@ -15,7 +19,16 @@
                 <source src="img/nonOSLogoVid7000001-0024.webm" type="video/webm">
             </video>
         </div>
-        <form class="loginform" action="loginhandler.php" method="post">
+
+        <?php
+            if(isset($_SESSION['status'])) {
+                echo "<div class='status'>" . $_SESSION['status'] . "</div>";
+                unset($_SESSION['status']);
+            }
+        ?>
+
+
+        <form class="loginform" action="loginhandler.php" method="POST">
             <label for="username">Username:</label>
             <input type="text" id="username" name="username" placeholder="Enter Username" required/>
             <label for="title">Password:</label>
@@ -25,10 +38,10 @@
         </form>
 
         <div class="otherloginbuttons">
-            <form action="/signup.php">
+            <form action="./signup.php">
                 <input type="submit" value="Sign Up"/>
             </form>
-            <form action="/desktop.php">
+            <form action="./guesthandler.php">
                 <input type="submit" value="Login as Guest"/>
             </form>
         </div>
