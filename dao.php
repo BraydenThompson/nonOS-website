@@ -2,7 +2,7 @@
 class Dao {
   // CLASS WIDE TOGGLE FOR WHETHER OR NOT TO USE HEROKU CALLS OR NOT
   // SET TO TRUE BEFORE PUSHING TO HEROKU
-  const USE_HEROKU = false;
+  const USE_HEROKU = true;
   private $madeTables = false;
   private $url;
   private $host;
