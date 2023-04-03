@@ -18,7 +18,7 @@
         $status = "Passwords must both match";
         $_SESSION["status"] = $status;
         $_SESSION["logged_in"] = false;
-        header("Location: signup.php");
+        header("Location: ./signup.php");
         exit();
     }
 
@@ -27,7 +27,7 @@
         $status = "Passwords must be at least 3 characters";
         $_SESSION["status"] = $status;
         $_SESSION["logged_in"] = false;
-        header("Location: signup.php");
+        header("Location: ./signup.php");
         exit();
     }
 
@@ -36,7 +36,7 @@
         $status = "Username must be 16 characters or less";
         $_SESSION["status"] = $status;
         $_SESSION["logged_in"] = false;
-        header("Location: signup.php");
+        header("Location: ./signup.php");
         exit();
     }
 
@@ -45,7 +45,7 @@
         $status = "Username already taken";
         $_SESSION["status"] = $status;
         $_SESSION["logged_in"] = false;
-        header("Location: signup.php");
+        header("Location: ./signup.php");
         exit();
     }
 
@@ -54,14 +54,13 @@
         $status = "Username cannot contain 'guest' (reserved keyword)";
         $_SESSION["status"] = $status;
         $_SESSION["logged_in"] = false;
-        header("Location: signup.php");
+        header("Location: ./signup.php");
         exit();
     }
     
-
     $dao->createUser($username, $password);
     $user = $dao->getUserFromName("'" . $username . "'");
     $_SESSION["logged_in"] = true;
     $_SESSION["user_id"] = $user[0]["user_id"];
-    header("Location: desktop.php");
+    header("Location: ./desktop.php");
     exit();

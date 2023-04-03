@@ -26,7 +26,7 @@
             }
         ?>
 
-        <form class="loginform" action="signuphandler.php" method="POST">
+        <form class="loginform" action="./signuphandler.php" method="POST">
             <label for="username">Create Username:</label>
             <input type="text" id="username" name="username" placeholder="Enter Username" required/>
             <label for="password">Create Password:</label>

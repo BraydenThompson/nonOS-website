@@ -17,12 +17,12 @@
     && $user[0]["guest"] == 0) {
         $_SESSION["logged_in"] = true;
         $_SESSION["user_id"] = $user[0]["user_id"];
-        header("Location: desktop.php");
+        header("Location: ./desktop.php");
     } else {
         $status = "Invalid username or password";
         $_SESSION["status"] = $status;
         $_SESSION["logged_in"] = false;
-        header("Location: index.php");
+        header("Location: ./index.php");
     }
 
 
