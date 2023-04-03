@@ -2,7 +2,7 @@
 class Dao {
   // CLASS WIDE TOGGLE FOR WHETHER OR NOT TO USE HEROKU CALLS OR NOT
   // SET TO TRUE BEFORE PUSHING TO HEROKU
-  const USE_HEROKU = true;
+  const USE_HEROKU = false;
   private $url;
   private $host;
   private $db;
@@ -29,7 +29,14 @@ class Dao {
 
   public function getConnection () {
     // PDO call the same for local and heroku db
-    return new PDO("mysql:host={$this->host};dbname={$this->db}", $this->user, $this->pass);
+    try {
+      $conn = new PDO("mysql:host={$this->host};dbname={$this->db}", $this->user, $this->pass);
+      // set the PDO error mode to exception
+      $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+      return $conn;
+    } catch(PDOException $e) {
+      echo "Connection failed: " . $e->getMessage();
+    }
   }
 
   public function getUserFromName($username) {
