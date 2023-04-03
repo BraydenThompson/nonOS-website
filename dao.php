@@ -1,14 +1,35 @@
 <?php
 class Dao {
-  private $host = "localhost";
-  private $db = "nonos_db";
-  private $user = "root";
-  private $pass = "";
+  // CLASS WIDE TOGGLE FOR WHETHER OR NOT TO USE HEROKU CALLS OR NOT
+  // SET TO TRUE BEFORE PUSHING TO HEROKU
+  const USE_HEROKU = true;
+  private $url;
+  private $host;
+  private $db;
+  private $dbparts;
+  private $user;
+  private $pass;
+
+  function __construct() {
+    if (self::USE_HEROKU) {
+      $this->url = getenv('JAWSDB_URL');
+      $this->dbparts = parse_url($this->url);
+
+      $this->host = $this->dbparts['host'];
+      $this->user = $this->dbparts['user'];
+      $this->pass = $this->dbparts['pass'];
+      $this->db = ltrim($this->dbparts['path'],'/');
+    } else {
+      $this->host = "localhost";
+      $this->db = "nonos_db";
+      $this->user = "root";
+      $this->pass = "";
+    }
+  }
 
   public function getConnection () {
-  return
-    new PDO("mysql:host={$this->host};dbname={$this->db}", $this->user,
-        $this->pass);
+    // PDO call the same for local and heroku db
+    return new PDO("mysql:host={$this->host};dbname={$this->db}", $this->user, $this->pass);
   }
 
   public function getUserFromName($username) {
