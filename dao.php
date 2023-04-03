@@ -2,7 +2,7 @@
 class Dao {
   // CLASS WIDE TOGGLE FOR WHETHER OR NOT TO USE HEROKU CALLS OR NOT
   // SET TO TRUE BEFORE PUSHING TO HEROKU
-  const USE_HEROKU = true;
+  const USE_HEROKU = false;
   private $madeTables = false;
   private $url;
   private $host;
@@ -23,7 +23,7 @@ class Dao {
       $this->db = ltrim($this->dbparts['path'],'/');
     } else {
       $this->host = "localhost";
-      $this->db = "test";
+      $this->db = "nonos_db";
       $this->user = "root";
       $this->pass = "";
     }
@@ -46,6 +46,7 @@ class Dao {
     $conn = $this->getConnection();
     return $conn->query("SELECT * FROM users WHERE users.username = $username")->fetchAll(PDO::FETCH_ASSOC);
   }
+
   //TODO: Sanitize this input from username field
   
     /*$conn = $this->getConnection();
@@ -79,6 +80,15 @@ class Dao {
     $q->bindParam(":admin", $admin);
     $q->bindParam(":guest", $guest);
     $q->execute();
+  }
+
+  public function createAndGetNewGuest() {
+    $this->createUser("guest", "guestpassword", 0, 1);
+    $conn = $this->getConnection();
+    $user = $conn->query("SELECT * FROM users WHERE users.username = 'guest' AND users.guest = 1")->fetchAll(PDO::FETCH_ASSOC);
+    $id = $user[0]["user_id"];
+    $conn->query("UPDATE users SET username = 'guest$id' WHERE users.user_id = $id");
+    return  $conn->query("SELECT * FROM users WHERE users.username = 'guest$id' AND users.guest = 1")->fetchAll(PDO::FETCH_ASSOC);
   }
 
   public function changeUsername($user_id, $newUsername) {

@@ -6,8 +6,7 @@
 
     // Create a new guest account
     $dao = new Dao();
-    $dao->createUser("guest", "password", "0", "1");
-    $user = $dao->getUserFromName("guest");
+    $user = $dao->createAndGetNewGuest();
 
     // Update the username to have the user id concattenated, making the username unique
     $dao->changeUsername($user[0]["user_id"], "guest" . $user[0]["user_id"]);
