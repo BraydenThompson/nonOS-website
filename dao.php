@@ -2,13 +2,15 @@
 class Dao {
   // CLASS WIDE TOGGLE FOR WHETHER OR NOT TO USE HEROKU CALLS OR NOT
   // SET TO TRUE BEFORE PUSHING TO HEROKU
-  const USE_HEROKU = false;
+  const USE_HEROKU = true;
+  private $madeTables = false;
   private $url;
   private $host;
   private $db;
   private $dbparts;
   private $user;
   private $pass;
+
 
   function __construct() {
     if (self::USE_HEROKU) {
@@ -21,7 +23,7 @@ class Dao {
       $this->db = ltrim($this->dbparts['path'],'/');
     } else {
       $this->host = "localhost";
-      $this->db = "nonos_db";
+      $this->db = "test";
       $this->user = "root";
       $this->pass = "";
     }
@@ -40,6 +42,7 @@ class Dao {
   }
 
   public function getUserFromName($username) {
+    $this->createTablesIfNotExist();
     $conn = $this->getConnection();
     return $conn->query("SELECT * FROM users WHERE users.username = $username")->fetchAll(PDO::FETCH_ASSOC);
   }
@@ -63,6 +66,7 @@ class Dao {
   }*/
 
   public function createUser($username, $password, $admin = "0", $guest = "0") {
+    $this->createTablesIfNotExist();
     $conn = $this->getConnection();
     $saveQuery =
         "INSERT INTO users 
@@ -78,6 +82,7 @@ class Dao {
   }
 
   public function changeUsername($user_id, $newUsername) {
+    $this->createTablesIfNotExist();
     $conn = $this->getConnection();
     $saveQuery =
         "UPDATE users SET 
@@ -91,11 +96,13 @@ class Dao {
   }
 
   public function getComments () {
-      $conn = $this->getConnection();
-      return $conn->query("SELECT users.username, messages.message, messages.sent_time FROM messages JOIN users ON messages.sender_id = users.user_id")->fetchAll(PDO::FETCH_ASSOC);
+    $this->createTablesIfNotExist();
+    $conn = $this->getConnection();
+    return $conn->query("SELECT users.username, messages.message, messages.sent_time FROM messages JOIN users ON messages.sender_id = users.user_id")->fetchAll(PDO::FETCH_ASSOC);
   }
 
   public function saveComment ($comment, $user_id) {
+    $this->createTablesIfNotExist();
     $conn = $this->getConnection();
     $saveQuery =
         "INSERT INTO messages 
@@ -107,4 +114,34 @@ class Dao {
     $q->bindParam(":sender_id", $user_id);
     $q->execute();
   }
+
+  private function createTablesIfNotExist() {
+    if (!$this->madeTables) {
+        $conn = $this->getConnection();
+        $saveQuery =
+            "CREATE TABLE IF NOT EXISTS `users` (
+              `user_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+              `username` varchar(16) NOT NULL,
+              `password` varchar(64) NOT NULL DEFAULT 'guest',
+              `admin` tinyint(1) DEFAULT 0,
+              `guest` tinyint(1) DEFAULT 0,
+              `banned` tinyint(1) DEFAULT 0,
+              PRIMARY KEY (`user_id`)
+            );
+            
+            CREATE TABLE IF NOT EXISTS `messages` (
+              `message_number` int(10) unsigned NOT NULL AUTO_INCREMENT,
+              `sender_id` int(10) unsigned NOT NULL,
+              `message` varchar(256) NOT NULL,
+              `sent_time` timestamp NOT NULL DEFAULT current_timestamp(),
+              PRIMARY KEY (`message_number`),
+              KEY `sender_id` (`sender_id`),
+              CONSTRAINT `messages_ibfk_1` FOREIGN KEY (`sender_id`) REFERENCES `users` (`user_id`)
+            );
+            ";
+        $q = $conn->prepare($saveQuery);
+        $q->execute();
+        $this->madeTables = true;
+      }
+    }
 }
