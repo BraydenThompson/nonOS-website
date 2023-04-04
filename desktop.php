@@ -114,7 +114,7 @@
                                 echo "<img class=\"galleryimage\" alt='" . htmlspecialchars($rowarray["title"]) . "' src='" . htmlspecialchars($rowarray["image_path"]) 
                                 . " 'onclick=\"updateGalleryInfo('".htmlspecialchars($rowarray["title"])."', '".htmlspecialchars($rowarray["username"])
                                 ."', '".htmlspecialchars($rowarray["upload_time"])."', '".htmlspecialchars($rowarray["width"])
-                                ."', '".htmlspecialchars($rowarray["height"])."', '".htmlspecialchars($rowarray["title"])."')\"/>";
+                                ."', '".htmlspecialchars($rowarray["height"])."', '".htmlspecialchars($rowarray["description"])."')\"/>";
                             }
                         ?>
                     </div>
