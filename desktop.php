@@ -54,7 +54,7 @@
                     <form id="chatform" method="POST" action="commenthandler.php" enctype="multipart/form-data">
                         <div>
                             <input type="submit" name="submit" value="Send!"/>
-                            <span><input type="text" id="comment" name="comment" placeholder="Enter your message here!"/></span>
+                            <span><input type="text" id="comment" name="comment" placeholder="Enter your message here!" required/></span>
                         </div>
                     </form>
                 </div>
@@ -69,37 +69,37 @@
                 </div>
                 <div id="gallerycontainer" class="windowbody">
                     <div id="galleryinfo">
-                        Image Info
+                        Image Info - Click image to inspect!
                         <table class="tablerounded">
                             <tr>
                                 <td>Title:</td>
-                                <td>MyImage</td>
+                                <td id="imageName">MyImage</td>
                             </tr>
                             <tr>
                                 <td>Uploader:</td>
-                                <td>myName</td>
+                                <td id="imageUploaderName">myName</td>
                             </tr>
                             <tr>
                                 <td>Upload date:</td>
-                                <td>6/2/2024</td>
+                                <td id="imageUploadTime">6/2/2024</td>
                             </tr>
                             <tr>
                                 <td>Resolution:</td>
-                                <td>300 x 300</td>
+                                <td id="imageResolution">300 x 300</td>
                             </tr>
                             <tr>
                                 <td>Description:</td>
-                                <td>This is a cool image I took of a lake!</td>
+                                <td id="imageDescription">This is a cool image I took of a lake!</td>
                             </tr>
-                            <tr>
+                            <!--<tr>
                                 <td>Tags:</td>
                                 <td>Cool, Photograph, Lake, Sunset</td>
-                            </tr>
+                            </tr>-->
                         </table>
 
                         <div id="galleryinfobuttons">
                             <button onclick="toggleElement('imagesubmit')">Upload a new Image!</button>
-                            <button>Delete</button>
+                            <button onclick="deleteCurrentGalleryImage()">Delete</button> <!--TODO: Compare currently selected image with user id in session for delete -->
                         </div>
                     </div>
                     <!-- GALLERY IMAGES -->
@@ -109,7 +109,12 @@
                             $dao = new Dao();
                             $images = $dao->getImages();
                             foreach ($images as $rowarray) {
-                                echo "<img class=\"galleryimage\" alt='" . htmlspecialchars($rowarray["title"]) . "' src='" . htmlspecialchars($rowarray["image_path"]) . "'/>";
+                                // This creates a new gallery image with a pre-populated on-click event that updates the galley info with the relavent info
+                                // TODO: Refactor to pull from the db each time with uploader id or something to allow comparisons with the session user id for deletions
+                                echo "<img class=\"galleryimage\" alt='" . htmlspecialchars($rowarray["title"]) . "' src='" . htmlspecialchars($rowarray["image_path"]) 
+                                . " 'onclick=\"updateGalleryInfo('".htmlspecialchars($rowarray["title"])."', '".htmlspecialchars($rowarray["username"])
+                                ."', '".htmlspecialchars($rowarray["upload_time"])."', '".htmlspecialchars($rowarray["width"])
+                                ."', '".htmlspecialchars($rowarray["height"])."', '".htmlspecialchars($rowarray["title"])."')\"/>";
                             }
                         ?>
                     </div>
@@ -126,15 +131,21 @@
                 <div id="imagesubmitcontainer" class="windowbody">
                     <form id="imagesubmitform" method="POST" action="imagehandler.php" enctype="multipart/form-data">
                         <label for="image">Select an image to upload:</label>
-                        <input type="file" id="image" name="image" accept="image/png, image/jpeg" required/>
+                        <input type="file" id="image" name="image" accept="image/png, image/jpeg" required/> <!-- HTML does not allow file fields to be pre-filled --->
                         <label for="title">Image Title:</label>
-                        <input type="text" id="title" name="title" placeholder="Enter image title" required/>
+                        <input type="text" id="title" name="title" placeholder="Enter image title" value=<?php echo isset($_SESSION['inputs']['title']) ? "'".$_SESSION['inputs']['title']."'" : "''"?> required/>
                         <label for="description">Image Description:</label>
-                        <textarea id="description" name="description" placeholder="Enter image description"></textarea>
+                        <textarea id="description" name="description" placeholder="Enter image description" required><?php echo isset($_SESSION['inputs']['description']) ? $_SESSION['inputs']['description'] : '' ?></textarea>
                         <!--<label for="tags">Image Tags:</label>
                         <textarea id="tags" name="tags" placeholder="Enter image tags sepparated by commas: ex (tag1, tag2, tag3)"></textarea>-->
                         <button type="submit">Submit Image!</button>
                     </form>
+                    <?php
+                        if(isset($_SESSION['status'])) {
+                            echo "<div class='status'>" . $_SESSION['status'] . "</div>";
+                            unset($_SESSION['status']);
+                        }
+                    ?>
                 </div>
             </div>
 

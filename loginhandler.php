@@ -6,6 +6,7 @@
 
     $username = $_POST['username'];
     $password = $_POST['password'];
+    $_SESSION["inputs"] = $_POST;
 
     //$logger->LogDebug("User [{$username}] attempting to log in");
 

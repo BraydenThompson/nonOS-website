@@ -146,3 +146,23 @@ function Dragger( element ) {
     var dragElem = dragElems[i];
     new Dragger( dragElem );
   }
+
+  function updateGalleryInfo(title, uploader, upload_time, width, height, description) {
+    document.getElementById("imageName").innerHTML = sanitizeHTML(title);
+    document.getElementById("imageUploaderName").innerHTML = sanitizeHTML(uploader);
+    document.getElementById("imageUploadTime").innerHTML = sanitizeHTML(upload_time);
+    document.getElementById("imageResolution").innerHTML = sanitizeHTML(width + " x " + height);
+    document.getElementById("imageDescription").innerHTML = sanitizeHTML(description);
+  }
+
+  /**
+   * Sanitizes an HTML string in JS
+   * @param {String} text 
+   * @returns sanitized string
+   */
+  function sanitizeHTML(text) {
+    var element = document.createElement('div');
+    element.innerText = text;
+    return element.innerHTML;
+  }
+  

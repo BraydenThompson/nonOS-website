@@ -140,7 +140,7 @@ class Dao {
 
   public function getImages() {
     $conn = $this->getConnection();
-    return $conn->query("SELECT users.username, images.title, images.description, images.image_path FROM images JOIN users ON images.uploader_id = users.user_id")->fetchAll(PDO::FETCH_ASSOC);
+    return $conn->query("SELECT users.username, images.title, images.description, images.image_path, images.width, images.height, images.upload_time FROM images JOIN users ON images.uploader_id = users.user_id")->fetchAll(PDO::FETCH_ASSOC);
   }
 
   private function createTablesIfNotExist() {
@@ -177,7 +177,6 @@ class Dao {
               `height` int(10) unsigned NOT NULL,
               `upload_time` timestamp NOT NULL DEFAULT current_timestamp(),
               PRIMARY KEY (`image_id`),
-              UNIQUE KEY `image_path` (`image_path`),
               KEY `uploader_id` (`uploader_id`),
               CONSTRAINT `images_ibfk_1` FOREIGN KEY (`uploader_id`) REFERENCES `users` (`user_id`)
             );

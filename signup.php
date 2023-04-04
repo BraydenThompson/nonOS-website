@@ -28,7 +28,7 @@
 
         <form class="loginform" action="./signuphandler.php" method="POST">
             <label for="username">Create Username:</label>
-            <input type="text" id="username" name="username" placeholder="Enter Username" required/>
+            <input type="text" id="username" name="username" placeholder="Enter Username" value=<?php echo isset($_SESSION['inputs']['username']) ? "'".$_SESSION['inputs']['username']."'" : "''"?> required/>
             <label for="password">Create Password:</label>
             <input type="password" id="password" name="password" placeholder="Enter Password" required/>
             <br>

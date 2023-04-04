@@ -7,6 +7,7 @@
     $username = $_POST['username'];
     $password = $_POST['password'];
     $password_repeat = $_POST['password_repeat'];
+    $_SESSION["inputs"] = $_POST;
 
     //$logger->LogDebug("User [{$username}] attempting to sign up");
 
