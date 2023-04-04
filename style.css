@@ -281,7 +281,8 @@ body {
 
 .galleryimage {
     padding: 5px;
-    max-width: 100px;
+    max-width: 150px;
+    max-height: 150px;
     vertical-align: middle;
 }
 

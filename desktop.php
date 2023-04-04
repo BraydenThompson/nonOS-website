@@ -42,8 +42,11 @@
                                 $dao = new Dao();
                                 $comments = $dao->getComments();
                                 foreach ($comments as $rowarray) {
-                                    $row = implode("</td><td>", $rowarray);
-                                    echo "<tr> <td>$row</td> </tr>";
+                                    echo "<tr>";
+                                    foreach ($rowarray as $row) {
+                                        echo "<td>" . htmlspecialchars($row) . "</td>";
+                                    }
+                                    echo "</tr>";
                                 }
                             ?>
                         </table>
@@ -102,20 +105,13 @@
                     <!-- GALLERY IMAGES -->
                     <!-- TODO: Generate a new window with that image when you click on it, and display image info -->
                     <div id="gallerybrowser">
-                        <img class="galleryimage" src="img/X.png"/>
-                        <img class="galleryimage" src="img/X.png"/>
-                        <img class="galleryimage" src="img/dog.png"/>
-                        <img class="galleryimage" src="img/dog2.png"/>
-                        <img class="galleryimage" src="img/X.png"/>
-                        <img class="galleryimage" src="img/X.png"/>
-                        <img class="galleryimage" src="img/dogwide.png"/>
-                        <img class="galleryimage" src="img/X.png"/>
-                        <img class="galleryimage" src="img/X.png"/>
-                        <img class="galleryimage" src="img/X.png"/>
-                        <img class="galleryimage" src="img/X.png"/>
-                        <img class="galleryimage" src="img/X.png"/>
-                        <img class="galleryimage" src="img/X.png"/>
-                        <img class="galleryimage" src="img/X.png"/>
+                        <?php
+                            $dao = new Dao();
+                            $images = $dao->getImages();
+                            foreach ($images as $rowarray) {
+                                echo "<img class=\"galleryimage\" alt='" . htmlspecialchars($rowarray["title"]) . "' src='" . htmlspecialchars($rowarray["image_path"]) . "'/>";
+                            }
+                        ?>
                     </div>
                 </div>
             </div>
@@ -128,15 +124,15 @@
                     <img class="headerbutton" src="img/minimize.png" alt="Minimize Window" width="30px" height="30px" onclick="toggleElement('imagesubmit')"/>
                 </div>
                 <div id="imagesubmitcontainer" class="windowbody">
-                    <form id="imagesubmitform">
+                    <form id="imagesubmitform" method="POST" action="imagehandler.php" enctype="multipart/form-data">
                         <label for="image">Select an image to upload:</label>
                         <input type="file" id="image" name="image" accept="image/png, image/jpeg" required/>
                         <label for="title">Image Title:</label>
                         <input type="text" id="title" name="title" placeholder="Enter image title" required/>
                         <label for="description">Image Description:</label>
                         <textarea id="description" name="description" placeholder="Enter image description"></textarea>
-                        <label for="tags">Image Tags:</label>
-                        <textarea id="tags" name="tags" placeholder="Enter image tags sepparated by commas: ex (tag1, tag2, tag3)"></textarea>
+                        <!--<label for="tags">Image Tags:</label>
+                        <textarea id="tags" name="tags" placeholder="Enter image tags sepparated by commas: ex (tag1, tag2, tag3)"></textarea>-->
                         <button type="submit">Submit Image!</button>
                     </form>
                 </div>

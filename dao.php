@@ -27,6 +27,7 @@ class Dao {
       $this->user = "root";
       $this->pass = "";
     }
+    $this->createTablesIfNotExist();
   }
 
   public function getConnection () {
@@ -42,7 +43,6 @@ class Dao {
   }
 
   public function getUserFromName($username) {
-    $this->createTablesIfNotExist();
     $conn = $this->getConnection();
     return $conn->query("SELECT * FROM users WHERE users.username = $username")->fetchAll(PDO::FETCH_ASSOC);
   }
@@ -67,7 +67,6 @@ class Dao {
   }*/
 
   public function createUser($username, $password, $admin = "0", $guest = "0") {
-    $this->createTablesIfNotExist();
     $conn = $this->getConnection();
     $saveQuery =
         "INSERT INTO users 
@@ -92,7 +91,6 @@ class Dao {
   }
 
   public function changeUsername($user_id, $newUsername) {
-    $this->createTablesIfNotExist();
     $conn = $this->getConnection();
     $saveQuery =
         "UPDATE users SET 
@@ -106,13 +104,11 @@ class Dao {
   }
 
   public function getComments () {
-    $this->createTablesIfNotExist();
     $conn = $this->getConnection();
     return $conn->query("SELECT users.username, messages.message, messages.sent_time FROM messages JOIN users ON messages.sender_id = users.user_id")->fetchAll(PDO::FETCH_ASSOC);
   }
 
   public function saveComment ($comment, $user_id) {
-    $this->createTablesIfNotExist();
     $conn = $this->getConnection();
     $saveQuery =
         "INSERT INTO messages 
@@ -123,6 +119,28 @@ class Dao {
     $q->bindParam(":message", $comment);
     $q->bindParam(":sender_id", $user_id);
     $q->execute();
+  }
+
+  public function saveImage($imagePath, $width, $height, $title, $description, $user_id) {
+    $conn = $this->getConnection();
+    $saveQuery =
+        "INSERT INTO images 
+        (uploader_id, image_path, title, width, height, description) 
+        VALUES 
+        (:uploader_id, :image_path, :title, :width, :height, :description)";
+    $q = $conn->prepare($saveQuery);
+    $q->bindParam(":uploader_id", $user_id);
+    $q->bindParam(":image_path", $imagePath);
+    $q->bindParam(":title", $title);
+    $q->bindParam(":width", $width);
+    $q->bindParam(":height", $height);
+    $q->bindParam(":description", $description);
+    $q->execute();
+  }
+
+  public function getImages() {
+    $conn = $this->getConnection();
+    return $conn->query("SELECT users.username, images.title, images.description, images.image_path FROM images JOIN users ON images.uploader_id = users.user_id")->fetchAll(PDO::FETCH_ASSOC);
   }
 
   private function createTablesIfNotExist() {
@@ -147,6 +165,21 @@ class Dao {
               PRIMARY KEY (`message_number`),
               KEY `sender_id` (`sender_id`),
               CONSTRAINT `messages_ibfk_1` FOREIGN KEY (`sender_id`) REFERENCES `users` (`user_id`)
+            );
+
+            CREATE TABLE `images` (
+              `image_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+              `uploader_id` int(10) unsigned NOT NULL,
+              `image_path` varchar(128) NOT NULL,
+              `title` varchar(64) NOT NULL,
+              `description` varchar(256) DEFAULT NULL,
+              `width` int(10) unsigned NOT NULL,
+              `height` int(10) unsigned NOT NULL,
+              `upload_time` timestamp NOT NULL DEFAULT current_timestamp(),
+              PRIMARY KEY (`image_id`),
+              UNIQUE KEY `image_path` (`image_path`),
+              KEY `uploader_id` (`uploader_id`),
+              CONSTRAINT `images_ibfk_1` FOREIGN KEY (`uploader_id`) REFERENCES `users` (`user_id`)
             );
             ";
         $q = $conn->prepare($saveQuery);
