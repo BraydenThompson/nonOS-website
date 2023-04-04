@@ -4,18 +4,18 @@
 
     $title = $_POST["title"];
     $description = $_POST["description"];
-    //$tags = $_POST["tags"];
-    $_SESSION["inputs"] = $_POST;
 
     
     if (empty($title)) {
         $_SESSION['status'] = "ERROR: Please enter a title";
+        $_SESSION["inputs"] = $_POST;
         header("Location: ./desktop.php");
         exit();
     }
 
     if (empty($description)) {
         $_SESSION['status'] = "ERROR: Please enter a description";
+        $_SESSION["inputs"] = $_POST;
         header("Location: ./desktop.php");
         exit();
     }
@@ -27,6 +27,7 @@
     if (count($_FILES) > 0) {
       if ($_FILES["image"]["error"] > 0) {
         $_SESSION['status'] = "ERROR: Please select an image";
+        $_SESSION["inputs"] = $_POST;
         header("Location: ./desktop.php");
         exit();
       } else {
