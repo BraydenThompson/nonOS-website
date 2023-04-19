@@ -97,7 +97,7 @@ body {
 }
 
 .taskbarbutton:hover {
-    background-color: purple;
+    background-color: rgb(197, 104, 28);
     color: black;
 }
 
@@ -301,6 +301,12 @@ body {
     position: absolute;
     top: -60px;
     right: 10px;
+}
+
+.imagecontainer .downloadbutton {
+    position: absolute;
+    bottom: -70px;
+    right: 5px;
 }
 
 /* IMAGE SUBMIT FORM STYLE */

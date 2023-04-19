@@ -92,7 +92,9 @@
                 </div>
                 <div id="gallerycontainer" class="windowbody">
                     <div id="galleryinfo">
-                        Image Info - Click image to inspect!
+                        <p>Image Info</p>
+                        <p>If you uploaded an image, press the X to delete</p>
+                        <p>Press the "download" button to create a new "window" with that image</p>
                         <table class="tablerounded">
                             <tr>
                                 <td>Title:</td>
@@ -137,14 +139,16 @@
                                 echo "<img class=\"galleryimage\" alt='" . htmlspecialchars($rowarray["title"]) . "' src='" . htmlspecialchars($rowarray["image_path"]) 
                                 . "' onclick=\"updateGalleryInfo('".htmlspecialchars($rowarray["title"])."', '".htmlspecialchars($rowarray["username"])
                                 ."', '".htmlspecialchars($rowarray["upload_time"])."', '".htmlspecialchars($rowarray["width"])
-                                ."', '".htmlspecialchars($rowarray["height"])."', '".htmlspecialchars($rowarray["description"])."'); "
-                                ."openImageWindow('" . htmlspecialchars($rowarray["title"]) . "', '".htmlspecialchars($rowarray["description"]). "', '".htmlspecialchars($rowarray["image_path"]). "', '" . htmlspecialchars($rowarray["image_id"])."');\"/>";
+                                ."', '".htmlspecialchars($rowarray["height"])."', '".htmlspecialchars($rowarray["description"])."')\"/>";
                                 
+                                // Create a download button that generates a new image window
+                                echo "<img class='downloadbutton' onclick=\"openImageWindow('" . htmlspecialchars($rowarray["title"]) . "', '".htmlspecialchars($rowarray["description"]). "', '".htmlspecialchars($rowarray["image_path"]). "', '" . htmlspecialchars($rowarray["image_id"])."')\" src='../../img/download.png' alt='Create a new window with image' width='30' height='30'\>";
+
                                 // If you uploaded the image, then create a delete button
                                 if ($_SESSION["user_id"] == $rowarray["uploader_id"] || $_SESSION["admin"] == 1){
                                     echo "<form class='imagedelete' id='imagedeleteform' method='POST' action='../handlers/imagedeletehandler.php' enctype='multipart/form-data'>";
                                     echo "<input type='hidden' name='deleteimageid' value=" . $rowarray["image_id"] . ">";
-                                    echo "<input type='image' name='delete' alt='Delete Image' src='../../img/X.png' width='20' height='20'>";
+                                    echo "<input type='image' name='delete' alt='Delete Image' src='../../img/X.png' width='30' height='30'>";
                                     echo "</form>";
                                 };
 
@@ -189,7 +193,7 @@
                     <img class="headerbutton" src="../../img/minimize.png" alt="Minimize Window" width="30px" height="30px" onclick="toggleElement('info')"/>
                 </div>
                 <div class="windowbody">
-                    <p>This website was made by Brayden Thompson for CS401 - Web Development at Boise State University. Thanks for visiting, leave a comment and upload an image if you want!</p>
+                    <p>This website was made by Brayden Thompson for CS401 - Web Development at Boise State University. Thanks for visiting, leave a comment and upload an image if you want! To log out, press the power button in the bottom right corner.</p>
                     <p>Contact me at braydenthompson@u.boisestate.edu</p>
                     <p>Copyright Brayden Thompson 2023</p>
                 </div>  
