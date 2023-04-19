@@ -63,7 +63,7 @@
                                         echo "<td>";
                                         echo "<form class='imagedelete' id='imagedeleteform' method='POST' action='../handlers/commentdeletehandler.php' enctype='multipart/form-data'>";
                                         echo "<input type='hidden' name='deletecommentid' value=" . $rowarray["message_number"] . ">";
-                                        echo "<input type='image' name='delete' alt='Delete Comment' src='../../img/X.png' width='20' height='20'>";
+                                        echo "<input type='image' name='delete' alt='Delete Comment' src='../../img/X.png' width='30' height='30'>";
                                         echo "</form>";
                                         echo "</td>";
                                     };
