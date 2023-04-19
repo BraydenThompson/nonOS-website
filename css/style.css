@@ -58,6 +58,7 @@ body {
     padding: 10;
     border-radius: 20px 20px 0 0;
     box-sizing: border-box;
+    z-index: 1000;
     
     background-color: hsl(221, 100%, 81%);
 
@@ -111,14 +112,14 @@ body {
 }
 
 .window {
-    visibility: hidden;
+    display: none;
     overflow: visible;
     position: absolute;
     min-width: 300px;
     min-height: 300px;
     border-radius: 20px;
     background-color: hsl(7, 92%, 75%);
-
+    z-index: 0;
     box-shadow: 
         20px 20px 30px hsl(0, 15%, 37%), /* Cast shadow */
         inset -8px -8px 16px hsl(0, 27%, 42%), /* Occlusion */
@@ -141,6 +142,11 @@ body {
         5px 5px 10px hsl(305, 36%, 57%), /* Cast shadow */
         inset -8px -8px 16px hsl(293, 27%, 42%), /* Occlusion */
         inset 0px 14px 28px hsl(314, 100%, 95%); /* Highlight */
+}
+
+/* Z INDEX CONTROLS FOR LAYERING */
+.top {
+    z-index: 100!important;
 }
 
 .headertext {

@@ -14,16 +14,16 @@
     $user = $dao->getUserFromName("'" . $username . "'");
 
     // Check if a user w/ username exists
-    if (sizeof($user) == 1 && $username == $user[0]["username"] && $password == $user[0]["password"]
+    if (sizeof($user) == 1 && $username == $user[0]["username"] && password_verify($password, $user[0]["password"])
     && $user[0]["guest"] == 0) {
         $_SESSION["logged_in"] = true;
         $_SESSION["user_id"] = $user[0]["user_id"];
-        header("Location: ./desktop.php");
+        header("Location: ../web/desktop.php");
     } else {
         $status = "Invalid username or password";
         $_SESSION["status"] = $status;
         $_SESSION["logged_in"] = false;
-        header("Location: ./index.php");
+        header("Location: ../web/index.php");
     }
 
 

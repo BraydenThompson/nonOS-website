@@ -14,5 +14,5 @@
     $_SESSION["logged_in"] = true;
     $_SESSION["user_id"] = $user[0]["user_id"];
 
-    header("Location: ./desktop.php");
+    header("Location: ../web/desktop.php");
     exit();

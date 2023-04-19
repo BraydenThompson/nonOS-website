@@ -2,7 +2,7 @@
 class Dao {
   // CLASS WIDE TOGGLE FOR WHETHER OR NOT TO USE HEROKU CALLS OR NOT
   // SET TO TRUE BEFORE PUSHING TO HEROKU
-  const USE_HEROKU = true;
+  const USE_HEROKU = false;
   private $madeTables = false;
   private $url;
   private $host;
@@ -140,7 +140,7 @@ class Dao {
 
   public function getImages() {
     $conn = $this->getConnection();
-    return $conn->query("SELECT users.username, images.title, images.description, images.image_path, images.width, images.height, images.upload_time FROM images JOIN users ON images.uploader_id = users.user_id")->fetchAll(PDO::FETCH_ASSOC);
+    return $conn->query("SELECT users.username, images.title, images.description, images.image_path, images.width, images.height, images.upload_time, images.image_id FROM images JOIN users ON images.uploader_id = users.user_id")->fetchAll(PDO::FETCH_ASSOC);
   }
 
   private function createTablesIfNotExist() {

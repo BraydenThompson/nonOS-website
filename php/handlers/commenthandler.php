@@ -7,11 +7,11 @@
 
     if (empty($comment)) {
         $_SESSION['status'] = "ERROR: Please enter a comment";
-        header("Location: ./desktop.php");
+        header("Location: ../web/desktop.php");
         exit();
     }
 
     $dao = new Dao();
     $dao->saveComment($comment, $_SESSION["user_id"]);
-    header("Location: ./desktop.php");
+    //header("Location: ../web/desktop.php");
     exit();
