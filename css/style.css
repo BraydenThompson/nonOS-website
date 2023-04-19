@@ -9,7 +9,7 @@ body {
 }
 
 #desktoparea {
-    background-image: url("img/nonOSlogoHalf.png");
+    background-image: url("../img/nonOSlogoHalf.png");
     background-repeat: no-repeat;
     background-position: center;
     height: calc(100% - 100px);
@@ -108,7 +108,6 @@ body {
 
 .rightlink {
     float: right;
-    padding: 25px 10px 0px 0px;
 }
 
 .window {
@@ -285,11 +284,23 @@ body {
     overflow-x: hidden;
 }
 
-.galleryimage {
+.imagecontainer {
+    position: relative;
+    display: inline;
+    border: 5px black;
+}
+
+.imagecontainer img {
     padding: 5px;
     max-width: 150px;
     max-height: 150px;
     vertical-align: middle;
+}
+
+.imagecontainer .imagedelete {
+    position: absolute;
+    top: 0px;
+    right: 0px;
 }
 
 /* IMAGE SUBMIT FORM STYLE */

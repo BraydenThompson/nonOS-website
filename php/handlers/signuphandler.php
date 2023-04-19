@@ -52,5 +52,6 @@
     $user = $dao->getUserFromName("'" . $username . "'");
     $_SESSION["logged_in"] = true;
     $_SESSION["user_id"] = $user[0]["user_id"];
+    $_SESSION["user_name"] = $user[0]["username"];
     header("Location: ../web/desktop.php");
     exit();

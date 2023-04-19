@@ -9,10 +9,11 @@ $(function() {
         date = new Date();
         var dateString = date.getFullYear() + "-" + date.getMonth() + "-" + date.getDate();
         dateString += " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
-    
-        $('#chatbox table tbody').append("<tr><td></td><td>" + comment + "</td><td>" + dateString + "</td></tr>"); // adds a row to the table already on the page
+  
+
+        $('#chatbox table tbody').append("<tr><td>"+ username +"</td><td>" + sanitizeHTML(comment) + "</td><td>" + dateString + "</td></tr>"); // adds a row to the table already on the page
         $("#comment").val("");
-        
+
         $.ajax({ // perform AJAX call to PHP
             type: "POST", 
             url: "../handlers/commenthandler.php",
@@ -23,5 +24,7 @@ $(function() {
               alert("FAILURE");
             }
           });
+
+          $("#chatbox").animate({scrollTop: $("#chatbox table").height()});
      });
 });

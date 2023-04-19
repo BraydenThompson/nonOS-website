@@ -7,12 +7,19 @@
         $_SESSION["status"] = "You must log in before accessing the main page!";
         header("Location: index.php");
     }
+
+    // Create username variable to pass to JS for ajax
+    $username = $_SESSION["user_name"];
 ?>
 
 <html>
     <head>
         <title>non-OS Desktop</title>
         <link rel="stylesheet" href="../../css/style.css">
+        <script>
+            // Let JS access the username for ajax
+            var username = "<?php echo $username; ?>" ;
+        </script>
         <script type="text/javascript" src="../../javascript/jquery-3.6.4.min.js" defer></script>
         <script type="text/javascript" src="../../javascript/tools.js" defer></script>
         <script src="../../javascript/ajax.js" type="text/javascript" defer></script>
@@ -23,6 +30,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500&display=swap" rel="stylesheet">
 
         <link rel="icon" type="image/x-icon" href="../../img/favicon.ico">
+
 	</head>
     
     <!--TODO: write php to dynamically generate windows, taskbar buttons, and desktop icons -->
@@ -46,11 +54,23 @@
                                 $comments = $dao->getComments();
                                 foreach ($comments as $rowarray) {
                                     echo "<tr>";
-                                    foreach ($rowarray as $row) {
-                                        echo "<td>" . htmlspecialchars($row) . "</td>";
-                                    }
+                                    echo "<td>" . htmlspecialchars($rowarray["username"]) . "</td>";
+                                    echo "<td>" . htmlspecialchars($rowarray["message"]) . "</td>";
+                                    echo "<td>" . htmlspecialchars($rowarray["sent_time"]) . "</td>";
+
+                                    // If you uploaded the comment, then create a delete button
+                                    if ($_SESSION["user_id"] == $rowarray["sender_id"]){
+                                        echo "<td>";
+                                        echo "<form class='imagedelete' id='imagedeleteform' method='POST' action='../handlers/commentdeletehandler.php' enctype='multipart/form-data'>";
+                                        echo "<input type='hidden' name='deletecommentid' value=" . $rowarray["message_number"] . ">";
+                                        echo "<input type='image' name='delete' alt='Delete Comment' src='../../img/X.png' width='20' height='20'>";
+                                        echo "</form>";
+                                        echo "</td>";
+                                    };
+
                                     echo "</tr>";
                                 }
+
                             ?>
                         </table>
                     </div> 
@@ -102,7 +122,6 @@
 
                         <div id="galleryinfobuttons">
                             <button onclick="toggleElement('#imagesubmit')">Upload a new Image!</button>
-                            <button onclick="deleteCurrentGalleryImage()">Delete</button> <!--TODO: Compare currently selected image with user id in session for delete -->
                         </div>
                     </div>
                     <!-- GALLERY IMAGES -->
@@ -112,13 +131,24 @@
                             $dao = new Dao();
                             $images = $dao->getImages();
                             foreach ($images as $rowarray) {
+                                echo "<div class='imagecontainer'>";
+
                                 // This creates a new gallery image with a pre-populated on-click event that updates the galley info with the relavent info
-                                // TODO: Refactor to pull from the db each time with uploader id or something to allow comparisons with the session user id for deletions
                                 echo "<img class=\"galleryimage\" alt='" . htmlspecialchars($rowarray["title"]) . "' src='" . htmlspecialchars($rowarray["image_path"]) 
                                 . "' onclick=\"updateGalleryInfo('".htmlspecialchars($rowarray["title"])."', '".htmlspecialchars($rowarray["username"])
                                 ."', '".htmlspecialchars($rowarray["upload_time"])."', '".htmlspecialchars($rowarray["width"])
                                 ."', '".htmlspecialchars($rowarray["height"])."', '".htmlspecialchars($rowarray["description"])."'); "
                                 ."openImageWindow('" . htmlspecialchars($rowarray["title"]) . "', '".htmlspecialchars($rowarray["description"]). "', '".htmlspecialchars($rowarray["image_path"]). "', '" . htmlspecialchars($rowarray["image_id"])."');\"/>";
+                                
+                                // If you uploaded the image, then create a delete button
+                                if ($_SESSION["user_id"] == $rowarray["uploader_id"]){
+                                    echo "<form class='imagedelete' id='imagedeleteform' method='POST' action='../handlers/imagedeletehandler.php' enctype='multipart/form-data'>";
+                                    echo "<input type='hidden' name='deleteimageid' value=" . $rowarray["image_id"] . ">";
+                                    echo "<input type='image' name='delete' alt='Delete Image' src='../../img/X.png' width='20' height='20'>";
+                                    echo "</form>";
+                                };
+
+                                echo "</div>";
                             }
                         ?>
                     </div>
@@ -140,8 +170,6 @@
                         <input type="text" id="title" name="title" placeholder="Enter image title" value=<?php echo isset($_SESSION['inputs']['title']) ? "'".$_SESSION['inputs']['title']."'" : "''"?> required/>
                         <label for="description">Image Description:</label>
                         <textarea id="description" name="description" placeholder="Enter image description" required><?php echo isset($_SESSION['inputs']['description']) ? $_SESSION['inputs']['description'] : '' ?></textarea>
-                        <!--<label for="tags">Image Tags:</label>
-                        <textarea id="tags" name="tags" placeholder="Enter image tags sepparated by commas: ex (tag1, tag2, tag3)"></textarea>-->
                         <button type="submit">Submit Image!</button>
                     </form>
                     <?php
@@ -153,16 +181,18 @@
                 </div>
             </div>
 
-            <div id="exampleImage" class="window resizeable imagewindow">
+            <div id="info" class="window resizeable">
                 <div class="windowheader">
-                    <span class="headertext">imageFilename.png</span>
-                    <img class="headerbutton" src="../../img/X.png" alt="Close Window" width="30px" height="30px" onclick="toggleElement('#exampleImage', true)"/>
-                    <img class="headerbutton" src="../../img/fullscreen.png" alt="Fullscreen Window" width="30px" height="30px" onclick="toggleFullscreen('exampleImage')"/>
-                    <img class="headerbutton" src="../../img/minimize.png" alt="Minimize Window" width="30px" height="30px" onclick="toggleElement('#exampleImage')"/>
+                    <span class="headertext">Info</span>
+                    <img class="headerbutton" src="../../img/X.png" alt="Close Window" width="30px" height="30px" onclick="toggleElement('#info', true)"/>
+                    <img class="headerbutton" src="../../img/fullscreen.png" alt="Fullscreen Window" width="30px" height="30px" onclick="toggleFullscreen('info')"/>
+                    <img class="headerbutton" src="../../img/minimize.png" alt="Minimize Window" width="30px" height="30px" onclick="toggleElement('#info')"/>
                 </div>
                 <div class="windowbody">
-                    <img class="center" src="../../img/dog.png" alt="Image Description: A picture of a dog"/>
-                </div>
+                    <p>This website was made by Brayden Thompson for CS401 - Web Development at Boise State University. Thanks for visiting, leave a comment and upload an image if you want!</p>
+                    <p>Contact me at braydenthompson@u.boisestate.edu</p>
+                    <p>Copyright Brayden Thompson 2023</p>
+                </div>  
             </div>
 
             <div id="notepad" class="window resizeable">
@@ -191,25 +221,26 @@
             </div>
 
             <ul id="icons">
-                <li onclick="toggleElement('#chat')"><img src="../../img/X.png"/>Chat</li>
-                <li onclick="toggleElement('#gallery')"><img src="../../img/X.png"/>Gallery</li>
-                <li onclick="toggleElement('#imagesubmit')"><img src="../../img/X.png"/>Image Submit</li>
-                <li onclick="toggleElement('#exampleImage')"><img src="../../img/dog.png"/>Example Image</li>
-                <li onclick="toggleElement('#notepad')"><img src="../../img/X.png"/>Notepad</li>
+                <li onclick="toggleElement('#chat')"><img src="../../img/chat.png"/>Chat</li>
+                <li onclick="toggleElement('#gallery')"><img src="../../img/gallery.png"/>Gallery</li>
+                <li onclick="toggleElement('#imagesubmit')"><img src="../../img/upload.png"/>Image Submit</li>
+                <li onclick="toggleElement('#notepad')"><img src="../../img/notepad.png"/>Notepad</li>
+                <li onclick="toggleElement('#info')"><img src="../../img/info.png"/>Info</li>
                 <li onclick="toggleElement('#button')"><img src="../../img/X.png"/>Big Button</li>
             </ul> 
         </div>
 
         <ul id="taskbar">
-            <li><a class="taskbarbutton" onclick="toggleElement('#chat')"><img src="../../img/X.png"/>Chat</a></li>
-            <li><a class="taskbarbutton" onclick="toggleElement('#gallery')"><img src="../../img/X.png">Gallery</a></li>
-            <li><a class="taskbarbutton" onclick="toggleElement('#imagesubmit')"><img src="../../img/X.png"/>Image Submit</a></li>
-            <li><a class="taskbarbutton" onclick="toggleElement('#exampleImage')"><img src="../../img/dog.png"/>Example Image</a></li>
-            <li><a class="taskbarbutton" onclick="toggleElement('#notepad')"><img src="../../img/X.png"/>Notepad</a></li>
+            <li><a class="taskbarbutton" onclick="toggleElement('#chat')"><img src="../../img/chat.png"/>Chat</a></li>
+            <li><a class="taskbarbutton" onclick="toggleElement('#gallery')"><img src="../../img/gallery.png">Gallery</a></li>
+            <li><a class="taskbarbutton" onclick="toggleElement('#imagesubmit')"><img src="../../img/upload.png"/>Image Submit</a></li>
+            <li><a class="taskbarbutton" onclick="toggleElement('#notepad')"><img src="../../img/notepad.png"/>Notepad</a></li>
+            <li><a class="taskbarbutton" onclick="toggleElement('#info')"><img src="../../img/info.png"/>info</a></li>
             <li><a class="taskbarbutton" onclick="toggleElement('#button')"><img src="../../img/X.png">Big Button</a></li>
 
-            <a class="rightlink" href="../handlers/logouthandler.php">Log Out</a>
-            <a class="rightlink" href="about.php">About</a>
+            <a class="rightlink" href="../handlers/logouthandler.php">
+                <img src="../../img/power.png" width="50" height="50" alt="Log Out">
+            </a>
         </ul>
 	</body>
 </html>

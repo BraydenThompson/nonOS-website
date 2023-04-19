@@ -55,6 +55,10 @@ function selectImage(imageJSON) {
 }
 
 function openImageWindow(imageName, description, filePath, imageID) {
+    imageName = sanitizeHTML(imageName);
+    description = sanitizeHTML(description);
+    filePath = sanitizeHTML(filePath);
+    imageID = sanitizeHTML(imageID);
     /*
                 <div id="exampleImage" class="window resizeable imagewindow">
                 <div class="windowheader">

@@ -2,7 +2,7 @@
 class Dao {
   // CLASS WIDE TOGGLE FOR WHETHER OR NOT TO USE HEROKU CALLS OR NOT
   // SET TO TRUE BEFORE PUSHING TO HEROKU
-  const USE_HEROKU = true;
+  const USE_HEROKU = false;
   private $madeTables = false;
   private $url;
   private $host;
@@ -105,7 +105,7 @@ class Dao {
 
   public function getComments () {
     $conn = $this->getConnection();
-    return $conn->query("SELECT users.username, messages.message, messages.sent_time FROM messages JOIN users ON messages.sender_id = users.user_id")->fetchAll(PDO::FETCH_ASSOC);
+    return $conn->query("SELECT messages.sender_id, messages.message_number, users.username, messages.message, messages.sent_time FROM messages JOIN users ON messages.sender_id = users.user_id ORDER BY messages.message_number")->fetchAll(PDO::FETCH_ASSOC);
   }
 
   public function saveComment ($comment, $user_id) {
@@ -118,6 +118,17 @@ class Dao {
     $q = $conn->prepare($saveQuery);
     $q->bindParam(":message", $comment);
     $q->bindParam(":sender_id", $user_id);
+    $q->execute();
+  }
+
+  public function deleteComment($message_number) {
+    $conn = $this->getConnection();
+    $deleteQuery =
+        "DELETE FROM messages WHERE
+        message_number = :message_number";
+
+    $q = $conn->prepare($deleteQuery);
+    $q->bindParam(":message_number", $message_number);
     $q->execute();
   }
 
@@ -138,9 +149,20 @@ class Dao {
     $q->execute();
   }
 
+  public function deleteImage($image_id) {
+    $conn = $this->getConnection();
+    $deleteQuery =
+        "DELETE FROM images WHERE
+        image_id = :image_id";
+
+    $q = $conn->prepare($deleteQuery);
+    $q->bindParam(":image_id", $image_id);
+    $q->execute();
+  }
+
   public function getImages() {
     $conn = $this->getConnection();
-    return $conn->query("SELECT users.username, images.title, images.description, images.image_path, images.width, images.height, images.upload_time, images.image_id FROM images JOIN users ON images.uploader_id = users.user_id")->fetchAll(PDO::FETCH_ASSOC);
+    return $conn->query("SELECT users.username, images.uploader_id , images.title, images.description, images.image_path, images.width, images.height, images.upload_time, images.image_id FROM images JOIN users ON images.uploader_id = users.user_id")->fetchAll(PDO::FETCH_ASSOC);
   }
 
   private function createTablesIfNotExist() {
