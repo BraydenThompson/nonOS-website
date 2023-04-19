@@ -23,7 +23,7 @@
         $status = "Invalid username or password";
         $_SESSION["status"] = $status;
         $_SESSION["logged_in"] = false;
-        header("Location: ../web/index.php");
+        header("Location: ../../index.php");
     }
 
 

@@ -5,7 +5,7 @@
 <html>
     <head>
         <title>non-OS Login</title>
-        <link rel="stylesheet" href="../../css/style.css">
+        <link rel="stylesheet" href="./css/style.css">
 
         <!-- Load font -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,7 +16,7 @@
     <div class="logincontainer center">
         <div class="logocontainer">            
             <video autoplay loop preload muted>
-                <source src="../../img/nonOSLogoVid7000001-0024.webm" type="video/webm">
+                <source src="./img/nonOSLogoVid7000001-0024.webm" type="video/webm">
             </video>
         </div>
 
@@ -28,7 +28,7 @@
         ?>
 
 
-        <form class="loginform" action="../handlers/loginhandler.php" method="POST">
+        <form class="loginform" action="./php/handlers/loginhandler.php" method="POST">
             <label for="username">Username:</label>
             <input type="text" id="username" name="username" placeholder="Enter Username" value=<?php echo isset($_SESSION['inputs']['username']) ? "'".$_SESSION['inputs']['username']."'" : "''" ?> required/>
             <label for="title">Password:</label>
@@ -38,10 +38,10 @@
         </form>
 
         <div class="otherloginbuttons">
-            <form action="./signup.php">
+            <form action="./php/web/signup.php">
                 <input type="submit" value="Sign Up"/>
             </form>
-            <form action="../handlers/guesthandler.php">
+            <form action="./php/handlers/guesthandler.php">
                 <input type="submit" value="Login as Guest"/>
             </form>
         </div>
