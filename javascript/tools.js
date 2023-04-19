@@ -20,7 +20,16 @@ function toggleElement(name, reset= false) {
             e.classList.remove("fullscreen");
         }
     }*/
-    $(name).toggle("slow");
+    // Remove top class from any other window
+    topWindows = document.querySelectorAll(".top");
+    topWindows.forEach(window => {
+        window.classList.remove("top");
+    })
+
+    // Set layer to top
+    document.getElementById(name).classList.add("top");
+
+    $("#" + name).toggle("slow");
     
 }
 
@@ -105,7 +114,7 @@ function openImageWindow(imageName, description, filePath, imageID) {
         close.setAttribute("alt", "Close Window");
         close.setAttribute("width", "30px");
         close.setAttribute("height", "30px");
-        close.setAttribute("onclick", "toggleElement('#" + imageID + "', true)");
+        close.setAttribute("onclick", "toggleElement('" + imageID + "', true)");
         
         header.appendChild(close);
         
@@ -125,7 +134,7 @@ function openImageWindow(imageName, description, filePath, imageID) {
         minimize.setAttribute("alt", "Minimize Window");
         minimize.setAttribute("width", "30px");
         minimize.setAttribute("height", "30px");
-        minimize.setAttribute("onclick", "toggleElement('#" + imageID + "')");
+        minimize.setAttribute("onclick", "toggleElement('" + imageID + "')");
 
         header.appendChild(minimize);
         
@@ -150,12 +159,12 @@ function openImageWindow(imageName, description, filePath, imageID) {
         // Add taskbar button
         li = document.createElement("li");
         li.innerHTML = "<a class='taskbarbutton'><img src='" + filePath + "'/>" + imageName + "</a>";
-        li.setAttribute("onclick", "toggleElement('#" + imageID + "')");
+        li.setAttribute("onclick", "toggleElement('" + imageID + "')");
         document.getElementById("taskbar").appendChild(li);
 
         // Add desktop icon
         icon = document.createElement("li");
-        icon.setAttribute("onclick", "toggleElement('#" + imageID + "')");
+        icon.setAttribute("onclick", "toggleElement('" + imageID + "')");
         icon.innerHTML = "<img src='" + filePath + "'/>" + imageName;
 
         document.getElementById("icons").appendChild(icon);

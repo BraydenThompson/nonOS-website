@@ -299,8 +299,8 @@ body {
 
 .imagecontainer .imagedelete {
     position: absolute;
-    top: 0px;
-    right: 0px;
+    top: -60px;
+    right: 10px;
 }
 
 /* IMAGE SUBMIT FORM STYLE */

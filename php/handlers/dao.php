@@ -2,7 +2,7 @@
 class Dao {
   // CLASS WIDE TOGGLE FOR WHETHER OR NOT TO USE HEROKU CALLS OR NOT
   // SET TO TRUE BEFORE PUSHING TO HEROKU
-  const USE_HEROKU = false;
+  const USE_HEROKU = true;
   private $madeTables = false;
   private $url;
   private $host;
@@ -81,8 +81,8 @@ class Dao {
     $q->execute();
   }
 
-  public function createAndGetNewGuest() {
-    $this->createUser("guest", "guestpassword", 0, 1);
+  public function createAndGetNewGuest($password) {
+    $this->createUser("guest",$password, 0, 1);
     $conn = $this->getConnection();
     $user = $conn->query("SELECT * FROM users WHERE users.username = 'guest' AND users.guest = 1")->fetchAll(PDO::FETCH_ASSOC);
     $id = $user[0]["user_id"];
