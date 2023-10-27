@@ -1,6 +1,7 @@
-# About
+![nonOSlogoHalf](https://github.com/BraydenThompson/nonOS-website/assets/77991576/ab6b29b4-b521-44ae-a400-e142436d916f)
 
-nonOS is a website that I incementally developed for my CS401 Web Development course in Spring 2023. The site is build primarily using straight HTML, CSS, and JavaScript, with a PHP backend, a MySQL database and some additional JQuery components to meet course requirements. Some code snippets and methodologies have been adapted from in-class examples and resources.
+# About
+nonOS is a website that I incementally developed for my CS401 Web Development course in Spring 2023. The site is build primarily using straight HTML, CSS, and JavaScript, with a PHP backend, a MySQL database and some additional JQuery components to meet course requirements. Some code snippets and methodologies have been adapted from in-class examples and resources. The logo was made by me, using Blender 3.3.1.
 
 __**The site is currently LIVE, and can be accessed at https://non-os.herokuapp.com/**__
 
