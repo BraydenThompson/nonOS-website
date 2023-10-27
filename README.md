@@ -18,7 +18,7 @@ The "Chat" application lets you chat with other visitors of the site asynchronou
 
 Admin accounts have the ability to delete chat messages as well as image submissions from the site. 
 
-A lot of time was spent paying attention to how the fake OS "windows" interracted with the actual browser window the page is viewec through. Floating windows will automatically resize to fit within the browser, and fullcreen windows will "stick" to the size of the browser, always remaining fullscreen. There also is collision on the border of the page, preventing one from dragging a window outside of the screen. Alltogether, this should make it almost impossible to lose a window.
+A lot of time was spent paying attention to how the fake OS "windows" interracted with the actual browser window the page is viewed through. Floating windows will automatically resize to fit within the browser, and fullcreen windows will "stick" to the size of the browser, always remaining fullscreen. There also is collision on the border of the page, preventing one from dragging a window outside of the screen. Alltogether, this should make it almost impossible to lose a window.
 
 ![image](https://github.com/BraydenThompson/nonOS-website/assets/77991576/9c779180-4b03-4f32-994e-51e79c13ba37)
 
