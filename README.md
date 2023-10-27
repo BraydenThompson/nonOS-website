@@ -6,7 +6,7 @@ nonOS is a website that I incementally developed for my CS401 Web Development co
 __**The site is currently LIVE, and can be accessed at https://non-os.herokuapp.com/**__
 
 # Features
-The website is designed to mimic the feel of using a desktop operating system, with each feature being in its own application "window". Inspiration for the layout came from similar desktop mimicing websites, some of which can be found here: https://github.com/syxanash/awesome-web-desktops. 
+The website is designed to mimic the feel of using a desktop operating system, with each feature being in its own application "window". Inspiration for the layout came from similar desktop mimicking websites, some of which can be found here: https://github.com/syxanash/awesome-web-desktops. 
 
 When logging in, you have the option of creating a new account, or generating a guest account. Passwords are properly hashed in the database, and page permissions are set up to disallow access to any other pages if you are not logged in.
 
