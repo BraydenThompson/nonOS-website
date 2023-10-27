@@ -23,4 +23,6 @@ A lot of time was spent paying attention to how the fake OS "windows" interracte
 
 ![image](https://github.com/BraydenThompson/nonOS-website/assets/77991576/7ee41381-fd1c-425d-b397-5413593fca43)
 
+![image](https://github.com/BraydenThompson/nonOS-website/assets/77991576/7f7fdfb5-6781-43f4-a911-0446748d37d1)
+
 ![image](https://github.com/BraydenThompson/nonOS-website/assets/77991576/b8b94778-d6a3-4c4e-921f-4d1458abf768)
