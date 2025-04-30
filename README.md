@@ -3,8 +3,6 @@
 # About
 nonOS is a website that I incementally developed for my CS401 Web Development course in Spring 2023. The site is build primarily using straight HTML, CSS, and JavaScript, with a PHP backend, a MySQL database and some additional JQuery components to meet course requirements. Some code snippets and methodologies have been adapted from in-class examples and resources. The logo was made by me, using Blender 3.3.1.
 
-__**The site is currently LIVE, and can be accessed at https://non-os.herokuapp.com/**__
-
 # Features
 The website is designed to mimic the feel of using a desktop operating system, with each feature being in its own application "window". Inspiration for the layout came from similar desktop mimicking websites, some of which can be found here: https://github.com/syxanash/awesome-web-desktops. 
 
